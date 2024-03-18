@@ -1,0 +1,85 @@
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <!-- Card Profil Utilisateur -->
+        <div class="card profile-card m-2 col-md-4">
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <img src="static/media/{{ account.profile_pic }}" class="rounded-circle mb-2" alt="Profile" style="width: 120px; height: 100px;">
+					{% if is_self %}
+                    <div><button id="profbtn" class="btn btn-primary">{{ lang.w_profile_settings }}</button></div>
+					{% endif %}
+                </div>
+                <p class="mt-4 mb-1 field-heading">{{ lang.w_email }}</p>
+                {% if is_self %}
+                    <h5>{{ email }}</h5>
+                {% else %}
+                    <h5>{{ email }}</h5>
+                {% endif %}
+                <p class="mt-4 mb-1 field-heading">display name</p>
+                <h5>{{ display_name }} </h5>
+                <p class="mt-4 mb-1 field-heading"> username </p>
+                <h5>{{ username }}</h5>
+            </div>
+        </div>
+
+        <!-- Logique de demande d'amis et interactions -->
+        <div class="card m-2 col-md-4">
+            <div class="card-body">
+                {% if request_sent == 0 %}
+                <div class="d-flex flex-row align-items-center justify-content-between">
+                    <span>{{ lang.w_accept_friend_request }}</span>
+                    <button id="id_cancel_{{id}}" class="btn btn-outline-danger">{{ lang.w_cancel }}</button>
+                    <button id="id_confirm_{{id}}" class="btn btn-outline-success">{{ lang.w_accept }}</button>
+                </div>
+                {% endif %}
+                
+                {% if is_friend == False and is_self == False %}
+                    {% if request_sent == 1 %}
+                    <div class="text-center pt-4">
+                        <button class="btn btn-danger" id="id_cancel_friend_request_btn">{{ lang.w_cancel_friend_request }}</button>
+                    </div>
+                    {% endif %}
+                    {% if request_sent == -1 %}
+                    <div class="text-center pt-4">
+                        <button class="btn btn-primary" id="id_send_friend_request_btn">{{ lang.w_send_friend_request }}</button>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                
+				{% if is_self %}
+                <div class="pt-4">
+                    <button id="display_friend_list" class="btn btn-primary">{{ lang.w_friends }} ({{friends|length}})</button>
+                    <div class="input-group mt-3">
+                        <input type="text" id="friend_search" name="friend_search" class="form-control" placeholder="{{ lang.w_search_friend }}">
+                        <button id="friend_search_submit" class="btn btn-outline-secondary" type="button">{{ lang.w_find }}</button>
+                    </div>
+					<p style='display:none;' id="w_request_sent" class="mt-4 mb-1 field-heading">{{ lang.w_request_sent }}</p>
+					<p style='display:none;' id="w_request_error" class="mt-4 mb-1 field-heading">{{ lang.w_error }}</p>
+                </div>
+            </div>
+			{% endif %}
+			{% if friend_requests %}
+			<div class="card m-2 px-4 pb-4">
+				<!-- Friend requests -->
+		  		<div class="d-flex flex-column pt-4">
+					<button id="friend_request_list" class="btn btn-primary">
+						<div class="d-flex flex-row align-items-center justify-content-center icon-container">
+							<span class="friend-text">{{ lang.w_friend_requests }} ({{friend_requests|length}})</span></button>
+						</div>
+				</div>
+			</div>
+			{% endif %}
+        </div>
+
+        <!-- Autres sections comme demandes d'amis et historique de jeu -->
+        <!-- Utiliser des structures similaires pour inclure les logiques spécifiques à ces sections -->
+    </div>
+    
+    <!-- Section Histoire de Jeu et Statistiques -->
+	<div class="row justify-content-center ">
+        <div class="col-md-9">
+           
+                    <button class="btn btn-primary w-100" id="game_history_btn">{{ lang.w_match_history }}</button>
+        </div>
+    </div>
+</div>

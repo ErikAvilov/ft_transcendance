@@ -1,0 +1,66 @@
+* {
+	user-select: none;
+	/* This will make the text unselectable */
+	-moz-user-select: none;
+	/* Firefox */
+	-webkit-user-select: none;
+	/* Chrome and Safari */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	background-color: var(--light-color);
+}
+
+#home {
+	text-align: center;
+	padding: 20px;
+}
+
+.container {
+	max-width: 800px;
+	margin: auto;
+	background-color: #f8f8f8;
+	padding: 20px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+
+.button {
+	color: white;
+	padding: 14px 20px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+.button:hover {
+	background-color: #45a049;
+}
+
+.description {
+	text-align: center;
+	margin-top: 20px;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+ul li {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+img {
+	margin-top: 20px;
+	border-radius: 5px;
+}

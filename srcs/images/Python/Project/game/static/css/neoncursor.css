@@ -1,0 +1,26 @@
+body, canvas {
+	margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+/* *{
+	cursor: none !important;
+}
+#cursor {
+	z-index: 100;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--neon-cursor-color);
+    box-shadow: 0 0 10px var(--neon-cursor-color), 0 0 20px var(--neon-cursor-color), 0 0 40px var(--neon-cursor-color);
+    position: absolute;
+    pointer-events: none;
+} */
+
+#trailCanvas {
+	z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+	pointer-events: none;
+}

@@ -1,0 +1,93 @@
+#TournamentRanking{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+}
+body{
+	background-color: #f7f7f7 !important;
+}
+#total-games{
+	background-color: #4cb4c7;
+}
+#games-won{
+	background-color: #4cb4c7;
+}
+#games-lost{
+	background-color: #4cb4c7;
+}
+
+#alert-container {
+	position: fixed;
+	margin: 0 20%;
+	width: 60%;
+	top: 20px;
+	right: 0;
+	z-index: 9999;
+}
+#loadingScreen {
+    background-color: #000;
+    color: #fff;
+	transition: opacity 0.5s ease-out;
+	position:fixed; 
+	top:0; 
+	left:0; 
+	width:100%; 
+	height:100%; 
+	font-size: 100px; 
+	background-color:rgb(0, 0, 0); 
+	z-index:99; 
+	display:flex; 
+	justify-content:center; 
+	align-items:center;
+}
+
+#timerBg {
+    color: #fff;
+	position:absolute; 
+	top:50%; 
+	left:50%; 
+	font-size: 100px;
+	z-index:999;
+	transform: translate(-50%, -50%);
+}
+
+.sidebar {
+	height: 100%;
+	width: 0; /* Largeur initiale */
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidebar a {
+	padding: 10px 15px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #ddd;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidebar a:hover {
+	color: #f1f1f1;
+}
+
+.sidebar-toggler {
+	position: absolute;
+	top: 50%;
+	left: -40px; /* Ajustez selon l'épaisseur de la flèche */
+	font-size: 30px;
+	background-color: #111;
+	color: white;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 0 5px 5px 0;
+}

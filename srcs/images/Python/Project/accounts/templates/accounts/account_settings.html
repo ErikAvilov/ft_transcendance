@@ -1,0 +1,46 @@
+{% load static %}
+<div id="profile_fetch" class="container py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="mb-5 text-center">
+                <button id="account_back_btn" class="btn btn-warning mb-3">&#8592; {{ lang.w_back_to_profile }}</button>
+                <div class="profile-img-container d-flex justify-content-center mt-4">
+                    <img class="profile-pic rounded-circle" src="static/media/{{ profile_pic }}" alt="Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="card card-body">
+                <div><p>Username : {{ username }}</p></div>
+                <form id="profile_submit" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                    	{% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+					<button class="btn btn-primary w-100" type="submit">{{ lang.w_submit }}</button>
+                </form>
+                <div class="mt-4">
+                    <select id="tfa_toggle" class="form-select">
+                        <option selected disabled>{{ lang.w_toggle_tfa }}</option>
+                        <option value="on">{{ lang.w_on }}</option>
+                        <option value="off">{{ lang.w_off }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="2FA" style="display: none;">
+	<center>
+		<div id="qrCodeContainer"></div>
+		<h2>{{ lang.w_tfa_message }}</h2>
+		<div id="secret_code" style="user-select: all;"><h3></h3></div>
+		<input type="text" id="first_totp" name="first_totp" placeholder="{{ lang.w_insert_code }}">
+		<button id="first_tfa_submit" class="btn-login" type="submit">{{ lang.w_submit }}</button>
+	</center>
+</div>

@@ -1,0 +1,9 @@
+:root {
+    --color: #9176FF;
+    --dark-color: #dcc9c9;
+    --grey-color: #454545;
+    --dark-icon-color: rgb(219, 77, 255);
+    --light-color: #f7f7f7;
+    --light-icon-color: rgba(188, 55, 188, 0.872);
+    --neon-cursor-color: rgb(171, 0, 201);
+}

@@ -1,0 +1,100 @@
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6e40c0;
+    --pink: #e83e8c;
+    --red: #c90364;
+    --orange: #fd7e14;
+    --yellow: #8ebb0e;
+    --green: #50b868;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #6610f2 !important;
+    --secondary: #6c757d;
+    --success: #50b868;
+    --info: #17a2b8;
+    --warning: #8ebb0e;
+    --danger: #c90364;
+    --light: #f8f9fa;
+    --dark: #343a40;
+
+    --bs-link-color:#6610f2;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; 
+    --color-primary: var(--primary); 
+    --color-primary-light: #9a60f7;
+    --bs-primary-rgb: var(--primary) !important;
+    --bs-progress-bar-bg: var(--primary) !important;
+
+    --color-secondary: var(--secondary); 
+    --color-secondary-hover: #9b9d9e;
+
+    --color-success: rgba(72, 201, 176, 1);
+    --color-success-hover: rgba(62, 176, 155, 1);
+
+    --color-info: rgba(34, 167, 240, 1); 
+    --color-info-hover: rgba(30, 145, 210, 1);
+
+    --color-warning: rgba(255, 195, 0, 1); 
+    --color-warning-hover: rgba(230, 175, 0, 1);
+
+    --color-danger: rgba(245, 54, 92, 1); 
+    --color-danger-hover: rgba(220, 49, 82, 1);
+
+    --color-light: rgba(247, 247, 247, 1);
+    --color-dark: rgba(33, 37, 41, 1);
+}
+
+.progress-bar {
+    background-color: var(--primary);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary-dark);
+}
+
+
+.btn-primary:hover {
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-secondary-hover);
+    border-color: var(--color-secondary-hover);
+}
+
+.btn-success:hover {
+    background-color: var(--color-success-hover);
+    border-color: var(--color-success-hover);
+}
+
+.btn-info:hover {
+    background-color: var(--color-info-hover);
+    border-color: var(--color-info-hover);
+}
+
+.btn-warning:hover {
+    background-color: var(--color-warning-hover);
+    border-color: var(--color-warning-hover);
+}
+
+.btn-danger:hover {
+    background-color: var(--color-danger-hover);
+    border-color: var(--color-danger-hover);
+}
+

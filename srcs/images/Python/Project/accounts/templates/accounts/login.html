@@ -1,0 +1,21 @@
+{% load crispy_forms_tags %}
+<center>
+	<div id="login" class="content-section col-md-8 col-md-offset-2">
+		<center>
+			<form id="loginForm" method="POST" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;" class="needs-validation" novalidate>
+				<fieldset class="form-group">
+					{{ form.username|as_crispy_field }}
+					{{ form.password|as_crispy_field }}
+					<input type="text" id="totp_code" class="my-3" placeholder="Enter OTP code if required">
+				</fieldset>
+				<center>
+					<button id="loginbtn2" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-log-in"></span>{{ lang.w_login2 }}</button>
+				</center>
+				<sub style="text-align:left;"> <a onclick="displayRegisterPage()" id="noaccbtn"
+						class="btn btn-primary">{{ lang.w_noaccount }}</a></sub>
+			</form>
+			<button id="oauth_btn" class="btn btn-primary">42 Authentication</button>
+		</center>
+	</div>
+	<button id="test_ttt" class="btn btn-primary">CLIQUE MOI</button>
+</center>

@@ -1,0 +1,27 @@
+<body class="container-fluid"> 
+	<div class="my-5 text-center">
+		<button id="account_back_btn" class="btn btn-primary mb-3">&#8592; Back to History</button>
+	</div>
+	<div class="container mt-3" style="max-height: 80vh; overflow: scroll;">
+		<div class="card p-3 d-flex flex-row">
+			<div class="w-50">
+				<div class="w-100 p-3">
+					<div class="card">
+						<div class="card-body">
+							<p><strong>date:</strong> {{ date }}</p>
+							<p><strong>winner:</strong> {{ winner }}</p>
+							<p><strong>loser:</strong> {{ loser }}</p>
+							<p><strong>{{ winner }} scored :</strong> {{ winnerscore }}</p>
+							<p><strong>{{ loser }} scored :</strong> {{ loserscore }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="w-50 p-3">
+				<canvas id="gameChart" width="100" height="100"></canvas>
+			</div>
+		</div>
+	</div>
+	<div id="dataFromDjangoGame" style="display: none;">{{ data|safe }}</div>
+</body>
+

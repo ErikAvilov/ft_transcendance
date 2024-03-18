@@ -1,0 +1,21 @@
+{% load crispy_forms_tags %}
+<center>
+	<div id="register" class="content-section col-md-8 col-md-offset-2">
+		<form id="registerForm" method="POST"
+			style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;" class="needs-validation" novalidate>
+			<fieldset class="form-group">
+				{{ regForm.username|as_crispy_field }}
+                {{ regForm.email|as_crispy_field }}
+                {{ regForm.password1|as_crispy_field }}
+                {{ regForm.password2|as_crispy_field }}
+			</fieldset>
+			<center>
+				<button id="regbtn" class="btn-login" type="submit"><span
+						class="glyphicon glyphicon-check"></span>{{ lang.w_register }}</button>
+				<center>
+					<sub><a onclick="displayLoginPage()" id="accbtn" class="btn btn-primary">{{ lang.w_account }}</a></sub>
+				</center>
+			</center>
+		</form>
+	</div>
+</center>

@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
+#gameContainer {
+	position: relative;
+
+}
+
+.score-animate {
+	animation: scaleUp 0.5s ease, blink 1s ease, colorUp 1s ease;
+}
+
+.pause-overlay {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 10;
+}
+
+.pause-text {
+	color: white;
+	font-family: 'Orbitron', sans-serif;
+	overflow: hidden;
+	touch-action: pan-up;
+	text-shadow: 0 0 2px #ffffff, 0 0 20px #000, 0 0 30px #000;
+	font-size: 3em;
+	text-align: center;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#player1Name, #player2Name{
+	max-width: 500px;
+	overflow: hidden;
+}
+
+#pauseSettings{
+	height: 70%;
+}
+
+.scoreboard {
+	position: absolute;
+	top: 10px;
+	left: 0;
+	right: 0;
+	display: flex;
+	padding: 0 20px;
+}
+
+.player-score {
+	font-size: 5em;
+	overflow: hidden;
+	touch-action: pan-up;
+	color: #ffffff;
+	font-family: 'Orbitron', sans-serif;
+	text-align: center;
+	text-shadow: 0 0 5px #ffffff, 0 0 20px #000, 0 0 30px #000;
+	color: white;
+	z-index: 11;
+}
+
+.custom-purple {
+	background-color: rgba(188, 55, 188, 0.872);
+	color: white;
+	border-color: rgb(94, 0, 94);
+}
+
+.progress {
+	left: 10%;
+    position: absolute;
+    top: 95%;
+    height: 40px;
+    width: 80%;
+}
+
+.custom-btn-size {
+	padding: 20px 40px;
+	font-size: 2em;
+}
+
+.pause-text>div {
+	margin-left: 30%;
+	margin-right: 30%;
+}
+
+#buttonContainer {
+	position: absolute;
+	width: 70%;
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 11;
+}
+
+#controls div {
+	cursor: pointer;
+	color: rgba(188, 55, 188, 0.872);
+	text-shadow: 0 0 5px rgba(188, 55, 188, 0.872), 0 0 20px #000, 0 0 30px #000;
+	margin: 10px 0;
+	padding: 5px 10px;
+	border: 1px solid rgba(188, 55, 188, 0.872);
+	border-radius: 5px;
+	display: inline-block;
+}
+
+#controls div:hover {
+	background-color: rgb(87, 49, 75);
+}
+
+#controls div.active {
+	background-color: rgb(204, 0, 255);
+	color: white;
+}
+
+#gameNameContent {
+	position: absolute;
+	bottom: 10px;
+	width: 100%;
+	text-align: center;
+	z-index: 11;
+}
+
+#gameName {
+	font-size: 4em;
+	overflow: hidden;
+	touch-action: pan-up;
+	text-align: center;
+	text-shadow: 0px 1px 7px rgba(128, 4, 120, 0.86);
+}
+
+
+.btn:hover{
+	background-color: rgb(163, 16, 155);
+}
+
+
+@keyframes scaleUp {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.6);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.5;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes colorUp {
+	0% {
+		color: white;
+	}
+
+	50% {
+		color: rgb(208, 0, 255)
+	}
+
+	100% {
+		color: white;
+	}
+
+
+
+}
+
+
+svg {
+	font-family: "Russo One", sans-serif;
+	width: 100%; height: 100%;
+}
+svg text {
+	animation: stroke 5s infinite alternate;
+	stroke-width: 2;
+	stroke: #A02D88;
+	font-size: 95px;
+}
+@keyframes stroke {
+	0%   {
+		fill: rgba(204,34,200,0); stroke: rgba(160,45,136,1);
+		stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+	}
+	70%  {fill: rgba(204,34,200,0); stroke: rgba(160,45,136,1); }
+	80%  {fill: rgba(204,34,200,0); stroke: rgba(160,45,136,1); stroke-width: 3; }
+	100% {
+		fill: rgba(204,34,200,1); stroke: rgba(160,45,136,0);
+		stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
+	}
+}

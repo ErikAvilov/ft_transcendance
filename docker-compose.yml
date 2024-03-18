@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    build: srcs/images/DB
+    init: true
+    container_name: db
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - ft_network
+    ports:
+      - "5432:5432"
+
+  django:
+    build: srcs/images/Python
+    init: true
+    container_name: django
+    env_file:
+      - .env 
+    volumes:
+      - ./srcs/images/Python/Project:/app
+    restart: always
+    networks:
+      - ft_network
+    ports:
+      - "8000:8000"
+
+networks:
+  ft_network:
+        driver: bridge

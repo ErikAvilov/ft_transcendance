@@ -1,0 +1,391 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="shortcut icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"
+		rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+
+	<meta charset=utf-8>
+	<title>{{ lang.w_title }}</title>
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+				"three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+			}
+		}
+	</script>
+	<link href="{% static 'css/main.css' %}" rel="stylesheet">
+	<link href="{% static 'css/neoncursor.css' %}" rel="stylesheet">
+	<link href="{% static 'css/game.css' %}" rel="stylesheet">
+	<link href="{% static 'css/reset.css' %}" rel="stylesheet">
+	<link href="{% static 'css/toggleMusic.css' %}" rel="stylesheet">
+	<link href="{% static 'css/variables.css' %}" rel="stylesheet">
+	<link href="{% static 'css/overload_bootstrap.css' %}" rel="stylesheet">
+	<!--	Melhior / Frigo   -->
+	<link href="{% static 'css/profile.css' %}" rel="stylesheet">
+	    
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	    
+	<!-- ======================================================================================================
+		# SECTION: STYLES
+		========================================================================================================-->
+		
+		<script>
+			window.addEventListener('load', function () {
+				var loadingScreen = document.getElementById('loadingScreen');
+				if (loadingScreen) {
+					setTimeout(function () {
+						loadingScreen.style.opacity = '0';
+					}, 1000);
+					setTimeout(function () {
+						loadingScreen.style.display = 'none';
+					}, 1000);
+				}
+			});
+		</script>
+</head>
+
+
+<body>
+	<div id="loadingScreen"
+	style="position:fixed; top:0; left:0; width:100%; height:100%; font-size: 100px; background-color:rgb(0, 0, 0); z-index:99; display:flex; justify-content:center; align-items:center;">
+	<p style="color: white;">Loading...</p>
+	</div>
+	<div id="timerBg" class="text-center" style="z-index: 10;">
+	</div>
+
+	<div id="alert-container" style="z-index: 9999;"></div>
+	<div class="modal fade" id="TournamentRankingModal" tabindex="-1" aria-labelledby="TournamentRankingModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-lg">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="TournamentRankingModalLabel">Ranking</h5>
+			</div>
+			<div class="modal-body">
+			  <div class="table-responsive">
+				  <table class="table table-striped" id="Ranking">
+					  <thead>
+						  <tr>
+							  <th>#</th>
+							  <th>Player Username</th>
+						  </tr>
+					  </thead>
+					  <tbody>
+					  </tbody>
+				  </table>
+			  </div>
+			</div>
+			<div class="modal-footer">
+			</div>
+		  </div>
+		</div>
+	  </div>
+	<nav id="homenav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<button id='homebtn' class="navbar-brand btn btn-primary" onclick="redirHome()">HOME</button>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+				aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarContent">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+								data-bs-toggle="dropdown" aria-expanded="false">🌍 Languages </button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="lang_func">
+								<li><a class="dropdown-item" href="#" data-value="French">Français 🇫🇷</a></li>
+								<li><a class="dropdown-item" href="#" data-value="English">English 🇬🇧</a></li>
+								<li><a class="dropdown-item" href="#" data-value="Russian">Русский 🇷🇺</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+
+	<!-- ======================================================================================================
+			# SECTION: GAME 
+			========================================================================================================-->
+
+	<div id="app">
+		<div id="game" class="route-section" style="display: none;">
+			<div id="gameContainer">
+				<div class="scoreboard d-flex justify-content-between">
+					<div>
+						<div class="player-score score-animate" id="player1Score">0</div>
+						<div class="player-score score-animate fs-3 mt-4" id="player1Name"></div>
+					</div>
+					<div>
+						<div class="player-score score-animate" id="player2Score">0</div>
+						<div class="player-score score-animate fs-3 mt-3" id="player2Name"></div>
+					</div>
+				</div>
+				<div id="buttonContainer" class="text-center">
+					<div class="row justify-content-center">
+						<div class="col-auto">
+							<button class="btn custom-btn-size btn-primary custom-purple mb-2" id="homeButton"
+								onclick="redirHome()">
+								<i class=" bi bi-house-door-fill"></i>
+							</button>
+						</div>
+						<div class="col-auto">
+							<button class="btn custom-btn-size btn-primary custom-purple mb-2" id="startButton">
+								<i class="bi bi-play-fill"></i>
+							</button>
+							<button class="btn custom-btn-size btn-primary custom-purple mb-2" id="pauseButton"
+								style="display: none;">
+								<i class="bi bi-pause-fill"></i>
+							</button>
+						</div>
+						<div class="col-auto">
+							<button class="btn custom-btn-size btn-primary custom-purple mb-2" id="restartButton">
+								<i class="bi bi-arrow-clockwise"></i>
+							</button>
+						</div>
+						<div class="col-auto">
+							<button class="btn custom-btn-size btn-primary custom-purple mb-2" type="button"
+								data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+								aria-controls="offcanvasNavbar" aria-label="Toggle navigation" id="gameManagement"
+								onclick="togglep2display()">
+								<i class="bi bi-gear-fill"></i>
+							</button>
+						</div>
+
+					</div>
+				</div>
+				<div id="timeBar" class="progress" style="height: 20px; display: none;">
+					<div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated"
+						role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
+						aria-valuemax="100"></div>
+				</div>
+				<nav id="gameNav">
+					<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+						aria-labelledby="offcanvasNavbarLabel">
+						<div class="offcanvas-header">
+							<h5 class="offcanvas-title" id="offcanvasNavbarLabel">Game manager</h5>
+						</div>
+						<div class="offcanvas-body">
+							<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+								<li class="nav-item dropdown">
+									<button id="homeButton" class="dropdown-item" onclick="redirHome()">Home</button>
+								</li>
+								<li class="nav-item dropdown">
+									<button id="tournament_display" class="dropdown-item" data-bs-toggle="modal"
+										data-bs-target="#tournamentModal">Tournament manager</button>
+								</li>
+								<li class="nav-item dropdown">
+									<button id="quickMatchButton" class="dropdown-item">Quick match</button>
+								</li>
+								<li class="nav-item dropdown">
+									<button id="quitTournamentButton" class="dropdown-item" style="display: none;">Leave queue</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<div class="wrapper" id="gameNameContent">
+					<svg>
+						<text x="50%" y="50%" dy=".35em" text-anchor="middle" id="gameName">
+							THE PONG
+						</text>
+					</svg>
+				</div>
+			</div>
+		</div>
+		<div id="pauseOverlay" class="pause-overlay">
+			<div id="pauseSettings" class="pause-text">
+				<div class="form-check mb-2">
+					<input class="form-check-input" type="checkbox" id="toggleColorChange" checked>
+					<label id='ball_color' class="form-check-label" for="toggleColorChange">Ball color change</label>
+				</div>
+
+				<div class="form-check mb-2">
+					<input class="form-check-input" type="checkbox" id="toggleIA1">
+					<label id='IA1' class="form-check-label" for="toggleIA1">IA P1</label>
+				</div>
+
+				<div class="form-check mb-2">
+					<input class="form-check-input" type="checkbox" id="toggleIA2">
+					<label id='IA2' class="form-check-label" for="toggleIA2">IA P2</label>
+				</div>
+
+				<div id="controls">
+					<div id="upControlP1">P1 Up: <span>w</span></div>
+					<div id="upControlP2">P2 Up: <span>o</span></div>
+					<div id="downControlP1">P1 Down: <span>s</span></div>
+					<div id="downControlP2">P2 Down: <span>l</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="tournamentModal" tabindex="-1" aria-labelledby="tournamentModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tournamentModalLabel">Tournament</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul class="nav nav-tabs text-primary" id="tournamentTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="create-tab" data-bs-toggle="tab"
+								data-bs-target="#create" type="button" role="tab" aria-controls="create"
+								aria-selected="true">Create tournament</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="join-tab" data-bs-toggle="tab" data-bs-target="#join"
+								type="button" role="tab" aria-controls="join" aria-selected="false">Join tournament</button>
+						</li>
+					</ul>
+					<div class="tab-content" id="tournamentTabContent">
+						<div class="tab-pane fade show active" id="create" role="tabpanel" aria-labelledby="create-tab">
+							<form id="createTournamentForm" class="needs-validation" novalidate>
+								<div class="mb-3">
+									<label id='tournamentParticipants' for="participantNumber" class="form-label">Tournament participants</label>
+									<div class="input-group">
+										<button class="btn btn-outline-secondary" type="button"
+											id="decrement">-</button>
+										<input type="text" class="form-control" id="participantNumber" value="4"
+											readonly>
+										<button class="btn btn-outline-secondary" type="button"
+											id="increment">+</button>
+									</div>
+									<div id="participantError" class="invalid-feedback">
+										The number of participant must be a power of 2 and greater than 3</div>
+									<div class="mb-3">
+										<label id='tournamentPassword' for="tournamentPasswordStr" class="form-label">Tournament Password</label>
+										<input class="form-control" id="tournamentPasswordStr">
+									</div>
+								</div>
+								<button id='tournamentLaunch' type="submit" class="btn btn-primary">Launch tournament</button>
+							</form>
+						</div>
+						<div class="tab-pane fade" id="join" role="tabpanel" aria-labelledby="join-tab">
+							<div class="mb-3">
+								<table class="table" id="tournamentTable">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th id='tournamentHost'>Host</th>
+											<th id='tournamentPlayer'>Players</th>
+											<th id='tournamentAction'>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div id="pagination"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ======================================================================================================
+		# SECTION: HOME 
+		========================================================================================================-->
+
+	<div id='main_page'>
+
+		<div id="home" class="route-section container mt-5 py-5">
+			<h1 class="display-4 text-center mb-5">TRANSCENDANCE</h1>
+
+			<p id="pongDesc" class="text-center fs-5 mb-5">The original pong, but not that much.</p>
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-3">
+					<button id="logout" class="btn btn-primary btn-lg btn-block custom-btn-size mx-auto">
+						Logout</button>
+				</div>
+				<div class="col-md-6 text-center mb-3">
+					<button id="playbtn" class="btn btn-secondary btn-lg btn-block custom-btn-size mx-auto"
+						onclick="redirGame()">
+						Play the Game</button>
+				</div>
+				<div class="col-md-6 text-center">
+					<button id="profview" class="btn btn-primary btn-lg btn-block custom-btn-size mx-auto">
+						Profile Page</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+		<!-- ======================================================================================================
+		# SECTION: PROFILE 
+		========================================================================================================-->
+
+		<div id="profile_page"></div>
+
+		<div id="forbidden" style="display: none;">
+			<center>
+				<div id="forbidden_message_one">
+					<h1>Forbidden Request</h1>
+				</div>
+				<div id="forbidden_message_two">
+					<h1>Unauthorized access<h1>
+				</div>
+			</center>
+		</div>
+
+</body>
+
+</html>
+
+<script>
+	var ctx = {{ var | safe }};
+	var jwt_token;
+	var jwt_refresh;
+	var ingame = false;
+</script>
+<script type="module">
+	import { getCookie } from "{% static 'js/jwt.js' %}";
+	jwt_token = getCookie("access");
+	jwt_refresh = getCookie("refresh"); 
+</script>
+<script>
+	function togglep2display() {
+		document.getElementById("offcanvasNavbar").style.display = 'block';
+		document.getElementById('pauseOverlay').style.display = 'block';
+	}
+</script>
+
+<script src="{% static 'js/alert-container.js' %}"></script>
+<script src="{% static 'js/utils.js' %}"></script>
+<script type="module" src="{% static 'js/routes.js' %}"></script>
+{% comment %}
+<script src="{% static 'js/audio.js' %}"></script> {% endcomment %}
+<script type="module" src="{% static 'js/game-physics.js' %}"></script>
+<script type="module" src="{% static 'js/languages.js' %}"></script>
+<script type="module" src="{% static 'js/authentication.js' %}"></script>
+<script type="module" src="{% static 'js/Profile.js' %}"></script>
+<script type="module" src="{% static 'js/tournament.js' %}"></script>
+<script type="module" src="{% static 'js/jwt.js' %}"></script>
+<script type="module" src="{% static 'js/chart.js' %}"></script>
+{% comment %}
+<script src="{% static 'js/neon-cursor.js' %}"></script> {% endcomment %}
+<script src="{% static 'js/InputValidator.js' %}"></script>
+<script> csrf_token = "{{ csrf_token }}";</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
