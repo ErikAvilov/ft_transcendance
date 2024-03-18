@@ -18,4 +18,5 @@ urlpatterns = [
 
 	path('loadRegister/', views.loadRegister, name='loadRegister'),
 	path('loadLogin/', views.loadLogin, name='loadLogin'),
+	path('loadHome/', views.loadHome, name='loadHome'),
 ]

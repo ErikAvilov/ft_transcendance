@@ -3,21 +3,23 @@ import { attachSearchListener, attachListListener, attachAcceptListeners, attach
 import { handle_token , getCookie , check_token } from "./jwt.js";
 import { attachHistoryChartListener } from "./chart.js"
 import { attachGameChartListener, attachGameListListener } from "./chart.js"
-import { attachRegListener, attachLoginListener } from "./authentication.js"
+import { attachLoginListener } from "./authentication/login.js"
+import { attachRegListener } from "./authentication/register.js"
 
-async function callRequest(type, url, dataType) {
+async function callRequest(type, url, dataType, Listener, data) {
 	$.ajax({
 		type: type,
 		url: url,
 		dataType: dataType,
-		beforeSend: function(request) {
+		beforeSend: async function(request) {
 			handle_token(request);
 		},
-		success: function(data) {
+		success: async function(data) {
 			document.getElementById('homenav').style.display = 'block';
 			document.getElementById('main_page').innerHTML = data;
+			Listener(data);
 		},
-		error: function(error) {
+		error: async function(error) {
 			console.error('Error loading: ', url);
 		},
 	});
@@ -44,8 +46,7 @@ const routes = {
 	'#login': () => {
 		if (!check_token()) {
 			hideAll();
-			callRequest('GET', 'loadLogin/', 'text');
-			attachLoginListener();
+			callRequest('GET', 'loadLogin/', 'text', attachLoginListener, undefined);
 		}
 		else {
 			hideAll();
@@ -56,8 +57,7 @@ const routes = {
 	'#register': () => {
 		if (!check_token()) {
 			hideAll();
-			callRequest('GET', 'loadRegister/', 'text');
-			attachRegListener();
+			callRequest('GET', 'loadRegister/', 'text', attachRegListener, undefined);
 		}
 		else {
 			hideAll();
@@ -352,6 +352,7 @@ async function handleHashChange() {
 	const hash = window.location.hash;
 	const routeAction = routes[hash];
 	if (check_token()){
+		console.log('hello')
 		if (ingame)
 		{
 			routes["#game"]();
@@ -381,7 +382,6 @@ async function handleHashChange() {
 			routeAction();
 	}
 	else {
-		console.log(document.getElementById('main_page'))
 		window.location.hash = '#login';
 		if (routeAction)
 			routeAction();

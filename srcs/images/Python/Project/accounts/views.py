@@ -258,7 +258,7 @@ def loadRegister(request):
 	lang = langPref(request)
 	context['lang'] = lang
 	context['regForm'] = UserRegisterForm(auto_id="register_%s")
-	return render(request, "accounts/register.html", context)
+	return render(request, "accounts/authentication/register.html", context)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -267,5 +267,13 @@ def loadLogin(request):
 	lang = langPref(request)
 	context['lang'] = lang
 	context['form'] = AuthenticationForm()
-	return render(request, "accounts/login.html", context)
+	return render(request, "accounts/authentication/login.html", context)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def loadHome(request):
+	context = {}
+	lang = langPref(request)
+	context['lang'] = lang
+	return render(request, "accounts/home.html", context)
 	
