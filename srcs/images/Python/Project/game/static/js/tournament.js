@@ -1,21 +1,5 @@
 import { gameSocket } from "./game-physics.js";
 
-// document.getElementById('createTournamentForm').addEventListener('submit', function (e) {
-// 	const size = document.getElementById('participantNumber').value;
-// 	const password = document.getElementById('tournamentPassword').value;
-
-// 	if (!size || !password) {
-// 		alert("Tous les champs sont requis !");
-// 		return;
-// 	}
-// 	const message = {
-// 		type: 'createTournament',
-// 		size: Number(size),
-// 		password: password
-// 	};
-// 	gameSocket.send(JSON.stringify(message));
-// });
-
 $('#tournamentModal').on('show.bs.modal', function (e) {
 	gameSocket.send(JSON.stringify({ type: "join_tournament_updates" }));
 	gameSocket.send(JSON.stringify({ type: "request_tournament_list" }));
@@ -51,23 +35,6 @@ export function updateTournamentListWithData(tournaments, page = 1) {
 	});
 }
 
-// function updatePagination(totalTournaments, tournamentsPerPage, currentPage) {
-// 	const pageCount = Math.ceil(totalTournaments / tournamentsPerPage);
-// 	const paginationContainer = $('#pagination');
-// 	paginationContainer.empty();
-
-// 	for (let i = 1; i <= pageCount; i++) {
-// 		const pageButton = $(`<button class="btn btn-sm btn-page">${i}</button>`);
-// 		pageButton.click(() => updateTournamentList(i));
-// 		if (i === currentPage) {
-// 			pageButton.addClass('btn-primary');
-// 		} else {
-// 			pageButton.addClass('btn-secondary');
-// 		}
-// 		paginationContainer.append(pageButton);
-// 	}
-// }
-
 $('#quitTournamentButton').on('click', function (e) {
 	gameSocket.send(JSON.stringify({
 		'type': 'quit_tournament',
@@ -94,9 +61,6 @@ $(document).on('click', '.join-tournament-btn', function () {
 	gameSocket.send(JSON.stringify({ type: "request_tournament_list" }));
 });
 
-// $(document).ready(function () {
-// 	updateTournamentList();
-// });
 
 $(document).ready(function () {
 	function nextPowerOf2(n) {
