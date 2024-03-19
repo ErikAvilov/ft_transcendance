@@ -1,7 +1,10 @@
 import { handle_token, check_token } from "./jwt.js";
 
-export async function attachEventListeners() {
-    const dynamicElement = document.getElementById('profile_submit');
+export async function attachSettingsListeners() {
+	const dynamicElement = document.getElementById('profile_submit');
+	const tfa_toggle_btn = document.getElementById("tfa_toggle");
+	const tfa_submit_btn = document.getElementById("first_tfa_submit");
+	const account_back_btn = document.getElementById('account_back_btn');
     if (dynamicElement) {
         dynamicElement.addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -40,24 +43,11 @@ export async function attachEventListeners() {
 			}
         });
     }
-}
-
-export async function attachBackBtnListener() {
-	const account_back_btn = document.getElementById('account_back_btn');
 	if (account_back_btn) {
 		account_back_btn.addEventListener('click', async function() {
 			history.back();
 		})
 	}
-}
-
-export function serveStatic() {
-	
-}
-
-export async function attachTfaListener() {
-	const tfa_toggle_btn = document.getElementById("tfa_toggle");
-	const tfa_submit_btn = document.getElementById("first_tfa_submit");
 	if (tfa_toggle_btn) {
 		tfa_toggle_btn.addEventListener('change', async function() {
 			if (this.value == 'on')
@@ -109,7 +99,6 @@ async function toggleTfa() {
 					document.getElementById("qrCodeContainer").innerHTML = "<img src=data:image/png;base64," + response.img + " alt='qr code'>"
 					document.getElementById("secret_code").innerText = response.code;
 					document.getElementById("2FA").style.display = 'block';
-					showAlert('2FA enabled', 'success');
 				} else {
 				}
 			},
@@ -186,4 +175,55 @@ export async function attachProfileListener() {
 			window.location.hash = '#friend_list';
 		});
 	}
+}
+
+export async function attachHistoryListeners() {
+	const	chartid = document.getElementById("chart1");
+	const visit_btn = document.getElementsByClassName('card-title games');
+	const	account_back_btn = document.getElementById('account_back_btn');
+	if (chartid) {
+		let ctx = chartid.getContext("2d");
+		let myData = JSON.parse(document.getElementById("dataFromDjango").innerHTML);
+		
+		const games = document.getElementsByClassName("games card mb-3");
+		if (ctx) {
+			let chart1 = new Chart(ctx, {
+				type: "doughnut",
+				data: {
+				labels: ["Losses", "Wins",],
+				datasets: [
+					{
+						backgroundColor: ["red", "green"],
+						borderColor: "#417690",
+						data: myData
+					}
+				]
+				},
+				options: {
+					title: {
+						text: "Wins / Losses",
+						display: true
+					}
+				}
+			});
+		}
+	}
+	if (visit_btn)
+	{
+		for (let i = 0; i < visit_btn.length; i++) {
+			visit_btn[i].addEventListener('click', function() {
+				var game_id = visit_btn[i].getAttribute('value');
+				visitGame(game_id);
+			});
+		};
+	}
+	if (account_back_btn) {
+		account_back_btn.addEventListener('click', async function() {
+			history.back();
+		})
+	}
+}
+
+async function visitGame(id){
+	window.location.hash = '#game_details/' + id;
 }

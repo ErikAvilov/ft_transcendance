@@ -20,10 +20,6 @@ async function	displayRegisterPage() {
 	window.location.hash = '#register';
 }
 
-async function	display2FA() {
-	window.location.hash = '#2FA';
-}
-
 async function	displayProfilePage() {
 	window.location.hash = '#profile_page';
 }

@@ -36,20 +36,6 @@ let PI = Math.PI;
 
 const gameConfigElement = document.getElementById('gameConfig');
 
-// let width = parseFloat(gameConfigElement.getAttribute('data-width'));
-// let height = parseFloat(gameConfigElement.getAttribute('data-height'));
-// let paddleh = parseFloat(gameConfigElement.getAttribute('data-paddleh'));
-// let paddlew = parseFloat(gameConfigElement.getAttribute('data-paddlew'));
-// let paddled = parseFloat(gameConfigElement.getAttribute('data-paddled'));
-// let paddlespeed = parseFloat(gameConfigElement.getAttribute('data-paddlespeed'));
-// let recoil = parseFloat(gameConfigElement.getAttribute('data-recoil'));
-// let paddlefriction = parseFloat(gameConfigElement.getAttribute('data-paddlefriction'));
-// let ballfriction = parseFloat(gameConfigElement.getAttribute('data-ballfriction'));
-// let smash = parseFloat(gameConfigElement.getAttribute('data-smash'));
-// let recovertime = parseFloat(gameConfigElement.getAttribute('data-recovertime'));
-// let ballv = parseFloat(gameConfigElement.getAttribute('data-ballv'));
-// let lengoal = parseFloat(gameConfigElement.getAttribute('data-lengoal'));
-
 function new_data() {
     let new_elem =
     {
@@ -369,9 +355,8 @@ function connectWebSocket() {
 			data.keys[1 + (2 * id)] = down;
 			data.image = current;
 
-			handleScore();
-		}
-		else if (message.type === 'send_update_tournaments') {
+			handleScore();	
+	} else if (message.type === 'send_update_tournaments') {
         updateTournamentListWithData(message.tournaments);
     } else if (message.type === 'joined_tournament') {
         document.getElementById('quitTournamentButton').style.display = 'block';
@@ -611,7 +596,6 @@ function logMessage(message) {
     document.getElementById('score').innerHTML += `${message}<br>`;
 }
 
-// Partie de Julien
 import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
@@ -628,7 +612,6 @@ let fov_min = 5;
 let fov_max = 180;
 
 function updatefov() {
-    //fov = fov_max - (fov_max-fov_min)*fov_fact/(data.ball.rv-ballv+fov_fact)
     fovx = fov * PI / 180;
     fovy = fovx;
     if (window.innerHeight > window.innerWidth) {
@@ -644,8 +627,6 @@ function cameraZ() {
 }
 
 const scene = new THREE.Scene();
-// const explosionEffect = new ExplosionEffect(scene);
-// scene.add(explosionEffect.particleGroup);
 scene.background = new THREE.Color(0.01, 0.01, 0.01);
 
 updatefov();
@@ -721,10 +702,6 @@ var p1Score = document.getElementById('player1Score');
 var p2Score = document.getElementById('player2Score');
 
 function animate() {
-    //  updatefov();
-    //camera.fov = fov_deg;
-    //  camera.updateProjectionMatrix();
-    //camera.position.set(0, 0, cameraZ());
     if (data.scored == false)
         for (let i = 0; i < len; ++i)
             scene.add(arrball[i]);

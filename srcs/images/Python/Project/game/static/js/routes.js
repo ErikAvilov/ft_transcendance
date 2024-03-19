@@ -1,8 +1,6 @@
-import { attachEventListeners, attachProfileListener, attachTfaListener, attachBackBtnListener} from "./Profile.js";
+import { attachSettingsListeners, attachProfileListener, attachHistoryListeners} from "./Profile.js";
 import { attachListListener, attachAcceptListeners, attachDeclineListeners, attachVisitHistoryListener } from "./friends.js";
 import { handle_token , check_token } from "./jwt.js";
-import { attachHistoryChartListener } from "./chart.js"
-import { attachGameChartListener, attachGameListListener } from "./chart.js"
 import { attachLoginListener } from "./authentication/login.js"
 import { attachRegListener } from "./authentication/register.js"
 import { attachHomeListeners } from "./home.js"
@@ -30,7 +28,8 @@ const timer = document.getElementById('timerBg');
 const routes = {
 	'#home': () => {
 		hideAll();
-		callRequest('GET', 'loadHome/', 'text', attachHomeListeners, undefined)
+		callRequest('GET', 'loadHome/', 'text', attachHomeListeners, undefined);
+		document.getElementById('main_page').style.display = 'block';
 	},
 	'#game': () => {
 			hideAll();
@@ -44,6 +43,7 @@ const routes = {
 		if (!check_token()) {
 			hideAll();
 			callRequest('GET', 'loadLogin/', 'text', attachLoginListener, undefined);
+			document.getElementById('main_page').style.display = 'block';
 		}
 		else {
 			hideAll();
@@ -55,85 +55,32 @@ const routes = {
 		if (!check_token()) {
 			hideAll();
 			callRequest('GET', 'loadRegister/', 'text', attachRegListener, undefined);
+			document.getElementById('main_page').style.display = 'block';
 		}
 		else {
 			hideAll();
 			document.getElementById('homenav').style.display = 'block';
 			document.getElementById('forbidden').style.display = 'block';
 		}
-	},
-	'#2FA': () => {
-			hideAll();
-			document.getElementById('homenav').style.display = 'block';
-			document.getElementById('forbidden').style.display = 'block';
-			document.getElementById('2FA').style.display = 'block';
 	},
 	'#profile_page': () => {
 		if (check_token()) {
 			hideAll();
-			callRequest('GET', 'account_profile_page/', 'text', attachProfileListener,undefined)
-		}
-		else {
-			hideAll();
-			document.getElementById('homenav').style.display = 'block';
-			document.getElementById('forbidden').style.display = 'block';
+			callRequest('GET', 'account_profile_page/', 'text', attachProfileListener, undefined);
+			document.getElementById('main_page').style.display = 'block';
 		}
 	},
 	'#profile_settings': () => {
 		if (check_token()) {
-			$.ajax({
-				type: 'GET',
-				url: 'account/',
-				dataType: 'text',
-				beforeSend: function(request) {
-					handle_token(request);
-				},
-				success: function(response) {
-					document.getElementById('homenav').style.display = 'block';
-					document.getElementById('profile_page').innerHTML = response;
-					attachEventListeners();
-					attachBackBtnListener();
-					attachTfaListener();
-					hideAll();
-					document.getElementById('profile_page').style.display = 'block';
-				},
-				error: function(error) {
-					console.error('Error:', error);
-				},
-			});
-			}
-		else {
 			hideAll();
-			document.getElementById('forbidden').style.display = 'block';
+			callRequest('GET', 'account/', 'text', attachSettingsListeners, undefined);
+			document.getElementById('main_page').style.display = 'block';
 		}
 	},
 	'#game_history': () => {
 		if (check_token()) {
-			$.ajax ({
-				type: 'GET',
-				url: 'game_history/',
-				dataType : 'text',
-				beforeSend: function(request) {
-					handle_token(request);
-				},
-				success : function(request) {
-					document.getElementById('homenav').style.display = 'block';
-					document.getElementById('profile_page').innerHTML = request;
-					hideAll();
-					document.getElementById('profile_page').style.display = 'block';
-					attachBackBtnListener();
-					attachHistoryChartListener();
-					attachGameListListener();
-				},
-				error : function(error) {
-					console.error('Error:', error);
-				}
-			});
-		}
-		else {
-			hideAll();
-			document.getElementById('homenav').style.display = 'block';
-			document.getElementById('forbidden').style.display = 'block';
+			callRequest('GET', 'game_history/', 'text', attachHistoryListeners, undefined);
+			document.getElementById('main_page').style.display = 'block';
 		}
 	},
 	'#game_details': () => {
@@ -224,21 +171,14 @@ const routes = {
 };
 
 async function hideAll() {
-	// document.getElementById('home').style.display = 'none';
 	document.getElementById('app').style.display = 'none';
 	document.getElementById('game').style.display = 'none';
+	document.getElementById('main_page').style.display = 'none';
 	timer.style.display = 'none';
-	//document.getElementById('homenav').style.display = 'none'; // frère pk c'est en none ????
-	//document.getElementById('dmode-btn-container').style.display = 'none';
-	//document.getElementById('volume-control').style.display = 'none';
 
 	/*  Melhior  */
 
-	// document.getElementById('register').style.display = 'none';
-	// document.getElementById('login').style.display = 'none';
 	document.getElementById('forbidden').style.display = 'none';
-
-	document.getElementById('profile_page').style.display = 'none';
 }
 
 async function loadProfile(user_id) {
@@ -283,8 +223,8 @@ async function loadHistory(user_id) {
 				hideAll();
 				document.getElementById('profile_page').innerHTML = data;
 				document.getElementById('profile_page').style.display = 'block';
-				attachHistoryChartListener();
-				attachGameListListener();
+				// attachHistoryChartListener();
+				// attachGameListListener();
 				attachBackBtnListener();
 			},
 			error: function(data) {
@@ -329,7 +269,7 @@ async function loadDetails(game_id) {
 async function handleHashChange() {
 	const hash = window.location.hash;
 	const routeAction = routes[hash];
-	if (check_token()){
+	if (check_token()) {
 		if (ingame)
 		{
 			routes["#game"]();
@@ -354,7 +294,8 @@ async function handleHashChange() {
 				console.log('Returning home due to an unforeseen consequence...');
 			}
 		}
-	} else if (window.location.hash == '#register'){
+	} 
+	else if (window.location.hash == '#register') {
 		if (routeAction)
 			routeAction();
 	}

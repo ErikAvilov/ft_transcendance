@@ -4,7 +4,7 @@
         <div class="card profile-card m-2 col-md-4">
             <div class="card-body">
                 <div class="text-center mb-4">
-                    <img src="static/media/{{ account.profile_pic }}" class="rounded-circle mb-2" alt="Profile" style="width: 120px; height: 100px;">
+                    <img src="static/media/{{ account.profile_pic }}" class="rounded-circle mb-2" alt="Profile" style="width: 120px; height: 120px; object-fit: cover;">
 					{% if is_self %}
                     <div><button id="profbtn" class="btn btn-primary">{{ lang.w_profile_settings }}</button></div>
 					{% endif %}
