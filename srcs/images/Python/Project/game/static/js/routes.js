@@ -1,10 +1,11 @@
-import { attachEventListeners, attachHistoryListener, attachTfaListener, attachBackBtnListener} from "./Profile.js";
-import { attachSearchListener, attachListListener, attachAcceptListeners, attachDeclineListeners, attachVisitHistoryListener } from "./friends.js";
-import { handle_token , getCookie , check_token } from "./jwt.js";
+import { attachEventListeners, attachProfileListener, attachTfaListener, attachBackBtnListener} from "./Profile.js";
+import { attachListListener, attachAcceptListeners, attachDeclineListeners, attachVisitHistoryListener } from "./friends.js";
+import { handle_token , check_token } from "./jwt.js";
 import { attachHistoryChartListener } from "./chart.js"
 import { attachGameChartListener, attachGameListListener } from "./chart.js"
 import { attachLoginListener } from "./authentication/login.js"
 import { attachRegListener } from "./authentication/register.js"
+import { attachHomeListeners } from "./home.js"
 
 async function callRequest(type, url, dataType, Listener, data) {
 	$.ajax({
@@ -29,11 +30,7 @@ const timer = document.getElementById('timerBg');
 const routes = {
 	'#home': () => {
 		hideAll();
-		document.getElementById('home').style.display = 'block';
-		document.getElementById('homenav').style.display = 'block';
-		document.getElementById('tournament_display').style.display = 'block';
-		document.getElementById('profview').style.display = 'block';
-		document.getElementById('logout').style.display = 'block';
+		callRequest('GET', 'loadHome/', 'text', attachHomeListeners, undefined)
 	},
 	'#game': () => {
 			hideAll();
@@ -71,6 +68,17 @@ const routes = {
 			document.getElementById('forbidden').style.display = 'block';
 			document.getElementById('2FA').style.display = 'block';
 	},
+	'#profile_page': () => {
+		if (check_token()) {
+			hideAll();
+			callRequest('GET', 'account_profile_page/', 'text', attachProfileListener,undefined)
+		}
+		else {
+			hideAll();
+			document.getElementById('homenav').style.display = 'block';
+			document.getElementById('forbidden').style.display = 'block';
+		}
+	},
 	'#profile_settings': () => {
 		if (check_token()) {
 			$.ajax({
@@ -96,36 +104,6 @@ const routes = {
 			}
 		else {
 			hideAll();
-			document.getElementById('forbidden').style.display = 'block';
-		}
-	},
-	'#profile_page': () => {
-		if (check_token()) {
-			$.ajax ({
-				type: 'GET',
-				url: 'account_profile_page/',
-				dataType : 'text',
-				beforeSend: function(request) {
-					handle_token(request);
-				},
-				success : function(request) {
-					document.getElementById('homenav').style.display = 'block';
-					document.getElementById('profile_page').innerHTML = request;
-					attachHistoryListener();
-					attachSearchListener();
-					hideAll();
-					document.getElementById('profile_page').style.display = 'block';
-				},
-				error : function(error) {
-					hideAll();
-					document.getElementById('homenav').style.display = 'block';
-					document.getElementById('forbidden').style.display = 'block';
-				}
-			})
-		}
-		else {
-			hideAll();
-			document.getElementById('homenav').style.display = 'block';
 			document.getElementById('forbidden').style.display = 'block';
 		}
 	},
@@ -352,7 +330,6 @@ async function handleHashChange() {
 	const hash = window.location.hash;
 	const routeAction = routes[hash];
 	if (check_token()){
-		console.log('hello')
 		if (ingame)
 		{
 			routes["#game"]();

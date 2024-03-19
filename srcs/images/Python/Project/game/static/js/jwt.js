@@ -1,5 +1,3 @@
-import {gameSocket} from "./game-physics.js"
-
 export function check_token()
 {
 	if (getCookie("access") == "" && getCookie("refresh") == "")

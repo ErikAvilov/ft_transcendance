@@ -1,47 +1,5 @@
 import { lang_switcher } from "./languages.js";
-import { handle_token , fetchNewjwtToken , getCookie , setCookie, check_token} from "./jwt.js"
-import { gameSocket } from "./game-physics.js"
-
-const logoutbtn = document.getElementById("logout");
-const langbtn = document.getElementById("lang_func");
-const login_page = document.getElementById("loginbtn");
-
-logoutbtn.addEventListener('click', async function(event) { // Logout
-		event.preventDefault();
-		if (check_token())
-		{
-			$.ajax({
-				type: 'POST',
-				url: 'logout_user/',
-				dataType: 'json',
-				data: {csrfmiddlewaretoken: csrf_token},
-				beforeSend: function(request) {
-					handle_token(request);
-				},
-				success: function(response) {
-					setCookie("access", "", 0);
-					setCookie("refresh", "", 0);
-					gameSocket.send(JSON.stringify({
-						'type': "logout"
-					}));
-					displayLoginPage();
-					if (response.success)
-						showAlert('Logout succesful!', 'success');
-					else 
-						showAlert('Logout failed!', 'danger');
-				},
-				error: function(error) {
-					setCookie("access", "", 0);
-					setCookie("refresh", "", 0);
-					gameSocket.send(JSON.stringify({
-						'type': "logout"
-					}));
-					displayLoginPage();
-					console.error('Error logout :', error);
-				},
-			});
-		}
-})
+import { handle_token , check_token} from "./jwt.js";
 
 /*  language switchers  */
 
