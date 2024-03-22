@@ -1,6 +1,6 @@
 ⚠️ An .env file is needed to start the docker project ⚠️
 
-You can make one yourself with these parameters
+You can make one yourself with these parameters and keep it in the root
 
 POSTGRES_USER=name
 
