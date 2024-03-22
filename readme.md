@@ -14,6 +14,7 @@ POSTGRES_ROOT_PASSWORD=root1234
 
 POSTGRES_PORT=5432
 
+DJANGO_SECRET_KEY= *Put whatever for testing*
 
 *Only needed for the 42 API*
 
@@ -25,8 +26,6 @@ API_UID=
 
 API_SECRET=
 
-
-DJANGO_SECRET_KEY= *Put whatever for testing*
 
 **TRANSCENDANCE**
 
