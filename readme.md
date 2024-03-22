@@ -34,7 +34,7 @@ Input validation has also been implemented into the pong to prevent lag and chea
 Games are simultaneously played in the frontend (Javascript) and backend (Python)
 
 - AI opponent -
-Players can choose to play against an AI opponent that is constrained by a rule stating that it can only receive the ball's trajectory once every second
+Players can choose to play against an AI opponent that is constrained by a rule stating that it can only receive the ball's trajectory data once every second
 
 - PostgreSQL as database -
 The postrgreSQL should be our backend's database of choice
