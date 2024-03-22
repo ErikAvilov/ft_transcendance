@@ -1,17 +1,30 @@
 ⚠️ An .env file is needed to start the docker project ⚠️
+
 You can make one yourself with these parameters
-POSTGRES_USER=
-POSTGRES_HOST=
-POSTGRES_NAME=
-POSTGRES_PASSWORD=
-POSTGRES_ROOT_PASSWORD=
-POSTGRES_PORT=
+
+POSTGRES_USER=name
+
+POSTGRES_HOST=db
+
+POSTGRES_NAME=postgres
+
+POSTGRES_PASSWORD=1234
+
+POSTGRES_ROOT_PASSWORD=root1234
+
+POSTGRES_PORT=5432
+
 
 *Only needed for the 42 API*
+
 SERVER_IP= *your personnal ip*
+
 API_URL=
+
 API_UID=
+
 API_SECRET=
+
 
 DJANGO_SECRET_KEY= *Put whatever for testing*
 
