@@ -30,7 +30,7 @@ Json Web Tokens are implemented for each user also as a second layer of security
 The pong has 3D attributes with the help of the Three.js library
 
 - Server-side pong -
-Input validation has also been implemented into the pong to prevent lag and cheating
+Input validation has also been implemented into the pong to prevent lag and cheating.
 Games are simultaneously played in the frontend (Javascript) and backend (Python)
 
 - AI opponent -
