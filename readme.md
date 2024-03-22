@@ -40,7 +40,7 @@ Players can choose to play against an AI opponent that is constrained by a rule 
 The postrgreSQL should be our backend's database of choice
 
 - Multiple language support -
-The user can switch between three languages of his choices between French, English and Russian
+The user can switch between three languages of their choices between French, English and Russian and set preferred languages for subsequent visits
 
 - Game Stats Dashboards -
 Game stats are represented in charts in the match history tab
