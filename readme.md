@@ -23,7 +23,7 @@ Users can authenticate through the 42 API with Oauth2
 Users can play pong from separate computers
   
 - 2FA + JWT -
-Users can choose to enable a two factor authentication system with the google authentication app as a second of security
+Users can choose to enable a two factor authentication system with the google authenticator app as a second layer of security
 Json Web Tokens are implemented for each user also as a second layer of security for authentication, backend requests, and navigation
 
 - 3D -
