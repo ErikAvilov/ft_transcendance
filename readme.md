@@ -1,3 +1,22 @@
+⚠️ An .env file is needed to start the docker project ⚠️
+You can make one yourself with these parameters
+POSTGRES_USER=
+POSTGRES_HOST=
+POSTGRES_NAME=
+POSTGRES_PASSWORD=
+POSTGRES_ROOT_PASSWORD=
+POSTGRES_PORT=
+
+*Only needed for the 42 API*
+SERVER_IP= *your personnal ip*
+API_URL=
+API_UID=
+API_SECRET=
+
+DJANGO_SECRET_KEY= *Put whatever for testing*
+
+**TRANSCENDANCE**
+
 42 project aimed at building a django website in a dockerized environment.
 
 Mandatory part -
