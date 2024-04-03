@@ -19,11 +19,11 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 def qr_to_base64(qr):
-    img_stream = BytesIO()
-    qr.save(img_stream, format='PNG')
-    img_stream.seek(0)
-    img_str = base64.b64encode(img_stream.getvalue()).decode('utf-8')
-    return img_str
+	img_stream = BytesIO()
+	qr.save(img_stream, format='PNG')
+	img_stream.seek(0)
+	img_str = base64.b64encode(img_stream.getvalue()).decode('utf-8')
+	return img_str
 
 @api_view(['POST']) # A retirer
 @permission_classes([IsAuthenticated])
@@ -112,6 +112,24 @@ def	disableTfa(request):
 def	userExists(request):
 	name = request.GET.get('username')
 	if UserProfile.objects.filter(name=name).exists() is True:
-		return JsonResponse({'success': True, 'message': f'id = {UserProfile.objects.get(name=name).id}', 'id': UserProfile.objects.get(name=name).id})
+		userid = UserProfile.objects.get(name=name).id
+		return JsonResponse({'success': True, 'id': userid})
 	return JsonResponse({'success': False, 'message': 'Username does not exist'})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def searchUsers(request):
+	term = request.GET.get('term', '')
+	if len(term) <= 0:
+		return JsonResponse({'success': False})
+	results = (
+		UserProfile.objects
+		.filter(name__istartswith=term)  # Case-insensitive prefix match
+		.order_by('name')  # Sort by name alphabetically
+		.values_list('id', 'name')[:6]  # Get only the first 6 names
+	)
+	print(results)
+	names = list(results)
+	return JsonResponse({'success': True, 'results' : names})
+
 

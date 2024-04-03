@@ -9,14 +9,16 @@ urlpatterns = [
 	path('game_details/', views.game_details, name='game_details'),
     
     path('saveProfileSettings/', requests.saveProfileSettings, name='saveProfileSettings'),
-
 	path('userExists/', requests.userExists, name='userExists'),
-
 	path('toggleTfa/', requests.toggleTfa, name='toggleTfa'),
 	path('disableTfa/', requests.disableTfa, name='disableTfa'),
 	path('validateTfa/', requests.validateTfa, name='validateTfa'),
+	path('searchUsers/', requests.searchUsers, name='searchUsers'),
+
 
 	path('loadRegister/', views.loadRegister, name='loadRegister'),
 	path('loadLogin/', views.loadLogin, name='loadLogin'),
 	path('loadHome/', views.loadHome, name='loadHome'),
 ]
+
+

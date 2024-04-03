@@ -4,3 +4,24 @@
     margin: 0 auto;
     border-radius: 50%;
 }
+
+.search_bar {
+	position: relative;
+	width: calc(100%);
+	margin: 0;
+}
+
+.search_list {
+	margin: 0;
+	background-color: aliceblue;
+}
+
+.search_list:hover {
+	background-color: bisque;
+	cursor: pointer;
+	border: 1px solid black;
+}
+
+.search_list:active {
+	font-size: small;
+}

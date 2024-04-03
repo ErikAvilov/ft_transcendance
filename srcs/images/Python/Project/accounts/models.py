@@ -42,8 +42,6 @@ class Message(models.Model):
 
 class	UserProfile(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
-	#id = models.AutoField(primary_key=True)
-	#user_id = models.CharField(max_length=6)
 	tfa_enabled = models.BooleanField(default=False)
 	otp_base32 = models.CharField(max_length=255, null=True)
 	token = models.CharField(max_length=255)

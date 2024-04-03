@@ -17,8 +17,6 @@
                 {% endif %}
                 <p class="mt-4 mb-1 field-heading">display name</p>
                 <h5>{{ display_name }} </h5>
-                <p class="mt-4 mb-1 field-heading"> username </p>
-                <h5>{{ username }}</h5>
             </div>
         </div>
 
@@ -50,17 +48,16 @@
                 <div class="pt-4">
                     <button id="display_friend_list" class="btn btn-primary">{{ lang.w_friends }} ({{friends|length}})</button>
                     <div class="input-group mt-3">
-                        <input type="text" id="friend_search" name="friend_search" class="form-control" placeholder="{{ lang.w_search_friend }}">
-                        <button id="friend_search_submit" class="btn btn-outline-secondary" type="button">{{ lang.w_find }}</button>
-                    </div>
-					<p style='display:none;' id="w_request_sent" class="mt-4 mb-1 field-heading">{{ lang.w_request_sent }}</p>
-					<p style='display:none;' id="w_request_error" class="mt-4 mb-1 field-heading">{{ lang.w_error }}</p>
+						<input type="text" id="friend_search" name="friend_search" class="form-control" placeholder="{{ lang.w_search_friend }}">
+						<button id="friend_search_submit" class="btn btn-outline-secondary" type="button">{{ lang.w_find }}</button>
+					</div>
+					<ul id="search_list" class="list-group search_bar">
+					</ul>
                 </div>
             </div>
 			{% endif %}
 			{% if friend_requests %}
 			<div class="card m-2 px-4 pb-4">
-				<!-- Friend requests -->
 		  		<div class="d-flex flex-column pt-4">
 					<button id="friend_request_list" class="btn btn-primary">
 						<div class="d-flex flex-row align-items-center justify-content-center icon-container">
@@ -70,12 +67,7 @@
 			</div>
 			{% endif %}
         </div>
-
-        <!-- Autres sections comme demandes d'amis et historique de jeu -->
-        <!-- Utiliser des structures similaires pour inclure les logiques spécifiques à ces sections -->
     </div>
-    
-    <!-- Section Histoire de Jeu et Statistiques -->
 	<div class="row justify-content-center ">
         <div class="col-md-9">
            

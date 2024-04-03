@@ -26,7 +26,7 @@ do
     comp=$(ls -la $(find . -regextype "posix-extended" -regex ".*(py|js|html)"))
     if [ "$(diff <(echo $actual) <(echo $comp))" != "" ]
     then
-        echo CHANGE
+        # echo CHANGE
         kill $(ps -e | grep daphne | grep -v grep | awk '{print $1}')
         daphne $ARG -v 3 $APP_NAME.asgi:application &
         actual=$(ls -la $(find . -regextype "posix-extended" -regex ".*(py|js|html)"))

@@ -6,6 +6,8 @@ export async function attachProfileListener() {
 	const	friend_search_btn = document.getElementById("friend_search_submit");
 	const	friends_btn = document.getElementById("friend_request_list");
 	const 	display_friends = document.getElementById('display_friend_list');
+	const	placeholder = document.getElementById('friend_search');
+
 	if (friend_search_btn) {
 		friend_search_btn.addEventListener('click', async function() {
 			if (check_token())
@@ -47,6 +49,40 @@ export async function attachProfileListener() {
 	if (display_friends) {
 		display_friends.addEventListener('click', async function() {
 			window.location.hash = '#friend_list';
+		});
+	}
+	if (placeholder) {
+		placeholder.addEventListener('input', async function() {
+			if (check_token())
+			{
+				$.ajax({
+					type: 'GET',
+					url: 'searchUsers/',
+					data: {'term': placeholder.value,
+					csrfmiddlewaretoken: csrf_token},
+					dataType: 'json',
+					beforeSend: function(request) {
+						handle_token(request);
+					},
+					success: async function(data) {
+						document.getElementById('search_list').innerHTML = '';
+						var IDs = [];
+						if (data.success) {
+							data.results.forEach(function(name) {
+								document.getElementById('search_list').innerHTML += '<li class="list-group-item search_list">' + name[1] + '</li>';
+								IDs.push(name[0]);
+							});
+							var names_list = document.getElementsByClassName("list-group-item search_list");
+							for (let i = 0; names_list[i]; i++)
+								names_list[i].addEventListener('click', function () {
+									window.location.hash = "#profile_page/" + IDs[i];
+							});
+						} else {
+							document.getElementById('search_list').innerHTML = '';
+						}
+					}
+				});
+			}
 		});
 	}
 }
