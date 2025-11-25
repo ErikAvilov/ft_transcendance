@@ -1,4 +1,4 @@
-⚠️ An .env file is needed to start the docker project ⚠️
+# ⚠️ An .env file is needed to start the docker project ⚠️
 
 You can make one yourself with these parameters and keep it in the root
 
@@ -75,3 +75,4 @@ The user can switch between three languages of their choices between French, Eng
 
 - Game Stats Dashboards -
 Game stats are represented in charts in the match history tab
+
